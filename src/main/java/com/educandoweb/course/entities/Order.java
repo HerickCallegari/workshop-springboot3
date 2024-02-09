@@ -39,6 +39,7 @@ public class Order implements Serializable {
 	@OneToMany(mappedBy = "id.order")
 	private Set<OrderItem> items = new HashSet<>();
 
+	
 	public Order() {
 	}
 
@@ -103,5 +104,12 @@ public class Order implements Serializable {
 		Order other = (Order) obj;
 		return Objects.equals(id, other.id);
 	}
-
+	
+	public Double getTotal() {
+		Double sum = 0.0;
+		for ( OrderItem obj : items) {
+			sum += obj.getSubTotal();
+		}
+		return sum;
+	}
 }
